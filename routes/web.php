@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', HomeController::class);
+
+Route:: controller(RegistroController::class) -> group( function(){
+    Route::get('/register', 'index');
+});
+
+Route:: controller(UsuarioController::class) -> group( function(){
+    Route::get('/usuario', 'index');
+    Route::get('/usuario/create', 'create');
+    Route::get('/usuario/{nombre}/{email?}', 'show');
 });
