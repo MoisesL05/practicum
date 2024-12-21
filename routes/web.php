@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\PefilController;
+use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\RegistroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +22,20 @@ Route::get('/', HomeController::class);
 
 Route:: controller(RegistroController::class) -> group( function(){
     Route::get('/register', 'index');
+    Route::get('/register/create', 'create');
+    Route::get('/register/recovery', 'recovery');
+});
+
+Route:: controller(PerfilController::class) -> group( function(){
+    Route::get('/perfil/medico', 'medico');
+    Route::get('/perfil/operador', 'operador');
+    Route::get('/perfil/directivo', 'directivo');
+    Route::get('/perfil/paciente', 'paciente');
 });
 
 Route:: controller(UsuarioController::class) -> group( function(){
     Route::get('/usuario', 'index');
     Route::get('/usuario/create', 'create');
+    Route::get('/usuario/update', 'update');
     Route::get('/usuario/{nombre}/{email?}', 'show');
 });

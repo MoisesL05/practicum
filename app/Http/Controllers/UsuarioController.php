@@ -12,7 +12,7 @@ class UsuarioController extends Controller
     public function create() {
         return view('usuario.create');
     }
-    public function update($id) {
+    public function update() {
         return view('usuario.update');
     }
     public function delete($id) {

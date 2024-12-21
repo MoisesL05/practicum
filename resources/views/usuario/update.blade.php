@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Creación de usuario')
+@section('title', 'Edición de usuario')
 
 @section('nav')
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -14,7 +14,7 @@
                     <svg class="bi" width="16" height="16"><use xlink:href="#house-door-fill"></use></svg>
                     <span class="visually-hidden">Inicio</span></a></li>
                 <li class="breadcrumb-item"><a class="link-body-emphasis fw-semibold text-decoration-none" href="#">Usuario</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Nuevo</li>
+                <li class="breadcrumb-item active" aria-current="page">Editar</li>
             </ol>
         </nav>
 
@@ -26,37 +26,37 @@
         <main>
             <div class="row g-5">
                 <div class="col-md-12 col-lg-12">
-                    <h4 class="mb-3 mt-3">Crear nuevo usuario</h4>
+                    <h4 class="mb-3 mt-3">Editar usuario</h4>
                     <form class="needs-validation" novalidate>
                         <div class="row g-3 mb-3">
                             <div class="col-sm-6">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="" value=""
+                                <label for="firstName" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="" value=""
                                     required>
                                 <div class="invalid-feedback">
                                     Se necesita nombre
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="apellido" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="apellido" placeholder="" value=""
+                                <label for="lastName" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="" value=""
                                     required>
                                 <div class="invalid-feedback">
                                     Se necesita apellido
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <label for="username" class="form-label">Correo Electrónico</label>
                                 <div class="input-group has-validation">
                                     <span class="input-group-text">@</span>
-                                    <input type="text" class="form-control" id="email" required>
+                                    <input type="text" class="form-control" id="username" required>
                                     <div class="invalid-feedback">
                                         Se necesita correo electrónico
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="password" class="form-label">Contraseña</label>
+                                <label for="username" class="form-label">Contraseña</label>
                                 <div class="input-group has-validation">
                                     <input type="password" class="form-control" id="password" required>
                                     <div class="invalid-feedback">
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="cedula" class="form-label">Cédula</label>
+                                <label for="lastName" class="form-label">Cédula</label>
                                 <input type="text" class="form-control" id="cedula" placeholder="" value=""
                                     required>
                                 <div class="invalid-feedback">
@@ -73,15 +73,15 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="direccion" class="form-label">Dirección</label>
+                                <label for="address" class="form-label">Dirección</label>
                                 <input type="text" class="form-control" id="address" required>
                                 <div class="invalid-feedback">
                                     Se necesita dirección
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="tipo" class="form-label">Tipo de Usuario</label>
-                                <select class="form-select" id="tipo" aria-label="Default select example">
+                                <label for="address" class="form-label">Tipo de Usuario</label>
+                                <select class="form-select" aria-label="Default select example">
                                     <option value="1">Médico</option>
                                     <option value="2" selected>Operador</option>
                                     <option value="3">Directivo</option>
