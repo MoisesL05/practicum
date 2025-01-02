@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
     public function index() {
-        return view('usuario.index');
+        //variable que enlaza algo, no se que aun
+        $usuarios = Usuario::all();
+        return view('usuario.index', compact('usuarios'));
     }
     public function create() {
         return view('usuario.create');
