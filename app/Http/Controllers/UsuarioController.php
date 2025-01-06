@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class UsuarioController extends Controller
 {
     public function index() {
-        //variable que enlaza algo, no se que aun
-        $usuarios = Usuario::all();
-        return view('usuario.index', compact('usuarios'));
+        //$usuarios = Usuario::all();
+        //return view('usuario.index', compact('usuarios'));
+        return view('usuario.index');
     }
     public function create() {
         return view('usuario.create');

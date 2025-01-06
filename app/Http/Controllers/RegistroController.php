@@ -15,4 +15,7 @@ class RegistroController extends Controller
     public function recovery() {
         return view('register.recovery');
     }
+    public function confirm() {
+        return view('register.confirm');
+    }
 }

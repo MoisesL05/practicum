@@ -128,4 +128,6 @@ return [
         ],
     ],
 
+    'user_type' =>  env('USER_TYPE', '1'),
 ];
+# 1 MEDICO | 2 OPERADOR | 3 PACIENTE

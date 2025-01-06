@@ -41,7 +41,6 @@ Route:: controller(HistoriaClinicaController::class) -> group( function(){
     Route::get('/historia', 'index');
     Route::get('/historia/create', 'create');
     Route::get('/historia/update', 'update');
-    Route::get('/historia/delete', 'delete');
     Route::get('/historia/{id}', 'show');
 });
 
@@ -55,25 +54,16 @@ Route:: controller(HorarioAtencionController::class) -> group( function(){
 
 Route:: controller(MedicoController::class) -> group( function(){
     Route::get('/medico', 'index');
-    Route::get('/medico/create', 'create');
-    Route::get('/medico/update', 'update');
-    Route::get('/medico/delete', 'delete');
     Route::get('/medico/{idUsuario}', 'show');
 });
 
 Route:: controller(OperadorController::class) -> group( function(){
     Route::get('/operador', 'index');
-    Route::get('/operador/create', 'create');
-    Route::get('/operador/update', 'update');
-    Route::get('/operador/delete', 'delete');
     Route::get('/operador/{idUsuario}', 'show');
 });
 
 Route:: controller(PacienteController::class) -> group( function(){
     Route::get('/paciente', 'index');
-    Route::get('/paciente/create', 'create');
-    Route::get('/paciente/update', 'update');
-    Route::get('/paciente/delete', 'delete');
     Route::get('/paciente/{idUsuario}', 'show');
 });
 
@@ -88,6 +78,7 @@ Route:: controller(RegistroController::class) -> group( function(){
     Route::get('/register', 'index');
     Route::get('/register/create', 'create');
     Route::get('/register/recovery', 'recovery');
+    Route::get('/register/confirm', 'confirm');
 });
 
 Route:: controller(RegistroHistoriaClinicaController::class) -> group( function(){

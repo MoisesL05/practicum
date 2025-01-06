@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class HorarioAtencionController extends Controller
 {
-    //
+    public function index() {
+        return view('horario.index');
+    }
 }
