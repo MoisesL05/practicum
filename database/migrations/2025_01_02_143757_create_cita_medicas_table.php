@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('cita_medicas', function (Blueprint $table) {
             $table->id();
+            $table->integer('estado')->default('1');
+            $table->date('fecha');
+            $table->time('hora');
+            $table->integer('idMedico');
+            $table->integer('idPaciente');
             $table->timestamps();
         });
     }

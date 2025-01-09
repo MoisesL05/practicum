@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('operadors', function (Blueprint $table) {
             $table->id();
+            $table->string('cargo');
+            $table->string('departamento');
+            $table->integer('idUsuario');
             $table->timestamps();
         });
     }

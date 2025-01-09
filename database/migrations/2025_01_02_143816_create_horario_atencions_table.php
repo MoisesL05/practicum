@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('horario_atencions', function (Blueprint $table) {
             $table->id();
+            $table->integer('diaDeSemana');
+            $table->time('horaFin');
+            $table->time('horaInicio');
+            $table->integer('idMedico');
             $table->timestamps();
         });
     }
