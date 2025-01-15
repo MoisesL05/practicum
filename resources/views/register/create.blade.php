@@ -6,7 +6,8 @@
     <div class="fondore">
         <div class="login">
             <main class="m-auto" style="max-width: 100%!important">
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation" novalidate method="POST" action="{{route('register.store')}}">
+                    @csrf
                     <div class="text-center">
                         <a href="{{ url('/') }}"><img class="mb-2" src="{{ asset('images/logoHIA.png') }}" alt="Logo" width="100" height="100"></a>
                         <h1 class="h3 mb-3 fw-normal">Registro de Paciente</h1>
@@ -14,23 +15,23 @@
                     <div class="row g-3">
                         <div class="col-sm-6 mt-2">
                             <label for="nombre" class="form-label mb-0">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="" value="" required>
+                            <input type="text" class="form-control p-1" id="nombre" name="nombre" placeholder="" value="" required>
                         </div>
                         <div class="col-sm-6 mt-2">
                             <label for="apellido" class="form-label mb-0">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" placeholder="" value="" required>
+                            <input type="text" class="form-control p-1" id="apellido" name="apellido" placeholder="" value="" required>
                         </div>
                         <div class="col-sm-12 mt-2">
-                            <label for="email" class="form-label mb-0">Correo Electrónico</label>
+                            <label for="correo" class="form-label mb-0">Correo Electrónico</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" id="email" required>
+                                <input type="email" class="form-control p-1" id="correo" name="correo" required>
                             </div>
                         </div>
                         <div class="col-sm-6 mt-2">
                             <label for="password" class="form-label mb-0">Contraseña</label>
                             <div class="input-group has-validation">
-                                <input type="password" class="form-control" id="password" required pattern="^[_a-zA-Z0-9\-]{5,15}$">
+                                <input type="password" class="form-control p-1" id="password" name="password" required pattern="^[_a-zA-Z0-9\-]{5,15}$">
                             </div>
                             <small>Letras y números (5 a 15)</small>
                         </div><div class="col-sm-6 mt-2">
@@ -41,13 +42,14 @@
                         </div>
                         <div class="col-sm-6 mt-2">
                             <label for="cedula" class="form-label mb-0">Cédula</label>
-                            <input type="text" class="form-control" id="cedula" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="cedula" name="cedula" placeholder="" value="" required>
                         </div>
                         <div class="col-sm-6 mt-2">
                             <label for="direccion" class="form-label mb-0">Dirección</label>
                             <input type="text" class="form-control" id="direccion" required>
                         </div>
-                        <input type="hidden" id="tipo" value="4">
+                        <input type="hidden" name="tipo" value="3">
+                        <input type="hidden" name="verificado" value="1">
                     </div>
                     <small><p class="text-danger">Todos los campos son obligatorios</p></small>
                     <div class="text-center">

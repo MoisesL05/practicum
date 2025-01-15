@@ -45,8 +45,8 @@
                     <td>15:00</td>
                     <td>18:00</td>
                     <td class="text-center">
-                        <a href="{{ url('horario/update') }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ url('horario/update') }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
+                        <a href="{{ route('horario.edit', 1) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
+                        <a href="{{ route('horario.edit', 1) }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
                     </td>
                 </tr>
                 <tr>
@@ -54,8 +54,8 @@
                     <td>15:00</td>
                     <td>18:00</td>
                     <td class="text-center">
-                        <a href="{{ url('horario/update') }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ url('horario/update') }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
+                        <a href="{{ route('horario.edit', 1) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
+                        <a href="{{ route('horario.edit', 1) }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
                     </td>
                 </tr>
                 <tr>
@@ -63,8 +63,8 @@
                     <td>14:00</td>
                     <td>17:00</td>
                     <td class="text-center">
-                        <a href="{{ url('horario/update') }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ url('horario/update') }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
+                        <a href="{{ route('horario.edit', 1) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
+                        <a href="{{ route('horario.edit', 1) }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
                     </td>
                 </tr>
             </tbody>

@@ -1,13 +1,13 @@
 @extends( config('logging.user_type')==1 ? 'layouts.medico' : (config('logging.user_type')==2 ? 'layouts.operador' : 'layouts.paciente'))
 
-@section('title', 'Crear cita médica')
+@section('title', 'Editar cita médica')
 
 @section('content')
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="row g-5">
         <div class="col-md-12 col-lg-12">
-            <h4 class="mb-3 mt-3">Crear cita médica</h4>
+            <h4 class="mb-3 mt-3">Editar cita médica</h4>
             <form class="needs-validation" novalidate>
                 <div class="row g-3 mb-1">
                     <div class="col-sm-12 mt-2">

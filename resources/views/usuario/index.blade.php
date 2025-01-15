@@ -32,63 +32,32 @@
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
+                    <th scope="col" style="width: 5%">#</th>
                     <th scope="col" style="width: 25%">Correo</th>
                     <th scope="col" style="width: 20%">Nombre</th>
                     <th scope="col" style="width: 20%">Apellido</th>
-                    <th scope="col" style="width: 20%">Cedula</th>
+                    <th scope="col" style="width: 15%">Cedula</th>
                     <th scope="col" style="width: 10%">Tipo</th>
                     <th scope="col" style="width: 5%">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>valeriasantos@gmail.com</td>
-                    <td>Valeria</td>
-                    <td>Santos</td>
-                    <td>1301301301</td>
-                    <td>Operador</td>
-                    <td class="text-center">
-                        <a href="{{ url('usuario/valeria') }}" title="Ver"><svg class="bi text-success"><use xlink:href="#ver" /></svg></a>
-                        <a href="{{ url('usuario/update') }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ url('usuario/update') }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>dereckchavez@gmail.com</td>
-                    <td>Dereck</td>
-                    <td>Chavez</td>
-                    <td>1351351351</td>
-                    <td>Paciente</td>
-                    <td class="text-center">
-                        <a href="{{ url('usuario/valeria') }}" title="Ver"><svg class="bi text-success"><use xlink:href="#ver" /></svg></a>
-                        <a href="{{ url('usuario/update') }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ url('usuario/update') }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>juanperez@gmail.com</td>
-                    <td>Juan</td>
-                    <td>Perez</td>
-                    <td>1001001001</td>
-                    <td>Medico</td>
-                    <td class="text-center">
-                        <a href="{{ url('usuario/valeria') }}" title="Ver"><svg class="bi text-success"><use xlink:href="#ver" /></svg></a>
-                        <a href="{{ url('usuario/update') }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ url('usuario/update') }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>luislopez@gmail.com</td>
-                    <td>Luis</td>
-                    <td>Lopez</td>
-                    <td>1001001002</td>
-                    <td>Médico</td>
-                    <td class="text-center">
-                        <a href="{{ url('usuario/valeria') }}" title="Ver"><svg class="bi text-success"><use xlink:href="#ver" /></svg></a>
-                        <a href="{{ url('usuario/update') }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ url('usuario/update') }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
-                    </td>
-                </tr>
+                @foreach($usuarios as $usuario)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $usuario->correo }}</td>
+                        <td>{{ $usuario->nombre }}</td>
+                        <td>{{ $usuario->apellido }}</td>
+                        <td>{{ $usuario->cedula }}</td>
+                        <td>@if ($usuario->tipo==1) Médico @elseif ($usuario->tipo==2) Operador @else Paciente @endif</td>
+                        <td class="text-center">
+                            {{-- <a href="{{ url('usuario/show', $usuario) }}" title="Ver"><svg class="bi text-success"><use xlink:href="#ver" /></svg></a> --}}
+                            <a href="{{ route('usuario.show', $usuario) }}" title="Ver"><svg class="bi text-success"><use xlink:href="#ver" /></svg></a>
+                            <a href="{{ route('usuario.edit', $usuario->id) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
+                            <a href="{{ route('usuario.destroy', $usuario->id) }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
