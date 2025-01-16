@@ -35,8 +35,8 @@
                             </div>
                         </div>
                         <div class="form-check text-start my-3">
-                            <input class="form-check-input" type="checkbox" value="remember-me" id="recodar">
-                            <label class="form-check-label" for="recodar">
+                            <input class="form-check-input" type="checkbox" value="remember-me" id="remember" name="remember">
+                            <label class="form-check-label" for="remember">
                               Recordarme
                             </label>
                           </div>

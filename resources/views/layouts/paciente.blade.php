@@ -93,33 +93,12 @@
                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </symbol>
     </svg>
-    <header class="navbar sticky-top bg-primary flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-center" href="#"><img src="{{asset('images/logoHIA.png')}}" width="50px" height="50px" alt="logo"></a>
+    <header class="navbar sticky-top bg-primary p-0 shadow pe-4">
+        <a class="navbar-brand col-md-3 col-lg-2 px-3 fs-6 text-center" href="#"><img src="{{asset('images/logoHIA.png')}}" width="50px" height="50px" alt="logo"></a>
 
-        <ul class="navbar-nav flex-row d-md-none">
-            <li class="nav-item text-nowrap">
-                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false"
-                    aria-label="Toggle search">
-                    <svg class="bi">
-                        <use xlink:href="#search" />
-                    </svg>
-                </button>
-            </li>
-            <li class="nav-item text-nowrap">
-                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <svg class="bi">
-                        <use xlink:href="#list" />
-                    </svg>
-                </button>
-            </li>
-        </ul>
-
-        <div id="navbarSearch" class="navbar-search w-100 collapse">
-            <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search"
-                aria-label="Search">
+        <div class="text-end">
+            <h6 class="fw-bold m-0 p-0 text-white">{{ auth()->user()->nombre }} {{ auth()->user()->apellido }}</h6>
+            <small class="fst-italic m-0 p-0 text-white">@if (auth()->user()->tipo==1) Médico @elseif (auth()->user()->tipo==2) Operador @else Paciente @endif</small>
         </div>
     </header>
 
@@ -134,7 +113,7 @@
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
+                                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{ url('dashboard') }}">
                                     <svg class="bi"> <use xlink:href="#house-fill" /> </svg>
                                     Inicio
                                 </a>
@@ -173,10 +152,15 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
-                                    <svg class="bi"> <use xlink:href="#door-closed" /> </svg>
-                                    Salir del Sistema
-                                </a>
+                                <form class="needs-validation" novalidate method="POST" action="{{route('register.logout')}}">
+                                    @csrf
+                                    <button type="submit" class="nav-link d-flex align-items-center gap-2">
+                                        <svg class="bi">
+                                            <use xlink:href="#door-closed" />
+                                        </svg>
+                                        Salir del Sistema
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>

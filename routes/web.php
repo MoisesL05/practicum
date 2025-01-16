@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CitaMedicaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorarioAtencionController;
 use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\OperadorController;
-use App\Http\Controllers\PacienteController;
-use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\PacienteController;;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Usuario;
@@ -24,6 +24,10 @@ use App\Models\Usuario;
 */
 
 Route::get('/', HomeController::class);
+
+Route:: controller(DashboardController::class) -> group( function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+});
 
 Route:: controller(CitaMedicaController::class) -> group( function(){
     Route::get('/citamedica', [CitaMedicaController::class, 'index'])->name('citamedica.index');
@@ -61,23 +65,17 @@ Route:: controller(PacienteController::class) -> group( function(){
     Route::get('/paciente/{idUsuario}', 'show');
 });
 
-Route:: controller(PerfilController::class) -> group( function(){
-    Route::get('/perfil/medico', 'medico');
-    Route::get('/perfil/operador', 'operador');
-    Route::get('/perfil/directivo', 'directivo');
-    Route::get('/perfil/paciente', 'paciente');
-});
-
 Route:: controller(RegistroController::class) -> group( function(){
     Route::get('/register', [RegistroController::class, 'index'])->name('register.index');
     Route::get('/register/create', [RegistroController::class, 'create'])->name('register.create');
     Route::get('/register/recovery', [RegistroController::class, 'recovery'])->name('register.recovery');
-    Route::post('/register',[RegistroController::class, 'store'])->name('register.store');
-    Route::post('/register',[RegistroController::class, 'login'])->name('register.login');
+    Route::post('/registers',[RegistroController::class, 'store'])->name('register.store');
+    Route::post('/registeri',[RegistroController::class, 'login'])->name('register.login');
+    Route::post('/registero',[RegistroController::class, 'logout'])->name('register.logout');
 });
 
 Route:: controller(UsuarioController::class) -> group( function(){
-    Route::get('/usuario', [UsuarioController::class, 'index'])->middleware(['auth','verified'])->name('usuario.index');
+    Route::get('/usuario', [UsuarioController::class, 'index'])->middleware(['auth'])->name('usuario.index');
     Route::get('/usuario/create', [UsuarioController::class, 'create'])->name('usuario.create');
     Route::get('/usuario/update', [UsuarioController::class, 'update'])->name('usuario.update');
     Route::get('/usuario/edit', [UsuarioController::class, 'edit'])->name('usuario.edit');
