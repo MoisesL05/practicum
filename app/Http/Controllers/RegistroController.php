@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegistroController extends Controller
 {
@@ -12,12 +13,21 @@ class RegistroController extends Controller
         return view('register.index');
     }
     public function create() {
+        $var=1;
         return view('register.create');
     }
     public function store(Request $request)
     {
-        Usuario::create($request->all());
-        return redirect()->route('usuario.index')->with('success','Usuario creado correctamente, revise su correo y siga las indicaciones');
+        $user = Usuario::create($request->all());
+
+        event(new Registered($user));
+
+        $credentials = $request->only('correo', 'password');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+	        //return redirect()->route('register.index')->with('success','Usuario creado correctamente, revise su correo y siga las indicaciones');
+            return redirect()->route('register.index')->with('success','Usuario creado correctamente, inicie sesión');
+	    }
     }
     public function login(Request $request) {
         $request->validate([
@@ -28,6 +38,7 @@ class RegistroController extends Controller
 
         $remember = ($request->has('remember') ? true : false);
 	    if (Auth::attempt($credentials,$remember)) {
+            $request->session()->regenerate();
 	        return redirect()->intended(route('dashboard.index'));
 	    }
 

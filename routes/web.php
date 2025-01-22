@@ -11,6 +11,8 @@ use App\Http\Controllers\PacienteController;;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Usuario;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,28 +28,28 @@ use App\Models\Usuario;
 Route::get('/', HomeController::class);
 
 Route:: controller(DashboardController::class) -> group( function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard.index');
 });
 
 Route:: controller(CitaMedicaController::class) -> group( function(){
-    Route::get('/citamedica', [CitaMedicaController::class, 'index'])->name('citamedica.index');
-    Route::get('/citamedica/create', [CitaMedicaController::class, 'create'])->name('citamedica.create');
-    Route::get('/citamedica/edit', [CitaMedicaController::class, 'edit'])->name('citamedica.edit');
-    Route::get('/citamedica/reagendar', [CitaMedicaController::class, 'reagendar'])->name('citamedica.reagendar');
+    Route::get('/citamedica', [CitaMedicaController::class, 'index'])->middleware(['auth'])->name('citamedica.index');
+    Route::get('/citamedica/create', [CitaMedicaController::class, 'create'])->middleware(['auth'])->name('citamedica.create');
+    Route::get('/citamedica/edit', [CitaMedicaController::class, 'edit'])->middleware(['auth'])->name('citamedica.edit');
+    Route::get('/citamedica/reagendar', [CitaMedicaController::class, 'reagendar'])->middleware(['auth'])->name('citamedica.reagendar');
     //Route::get('/usuario/show/{usuario}', [UsuarioController::class, 'show'])->name('usuario.show');
-    Route::post('/citamedicas', [CitaMedicaController::class, 'store'])->name('citamedica.store');
-    Route::post('/citamedicad', [CitaMedicaController::class, 'destroy'])->name('citamedica.destroy');
-    Route::post('/citamedicau', [CitaMedicaController::class, 'update'])->name('citamedica.update');
+    Route::post('/citamedicas', [CitaMedicaController::class, 'store'])->middleware(['auth'])->name('citamedica.store');
+    Route::post('/citamedicad', [CitaMedicaController::class, 'destroy'])->middleware(['auth'])->name('citamedica.destroy');
+    Route::post('/citamedicau', [CitaMedicaController::class, 'update'])->middleware(['auth'])->name('citamedica.update');
 });
 
 Route:: controller(HorarioAtencionController::class) -> group( function(){
     //Route::get('/horario/{id}', [HorarioAtencionController::class, 'index'])->name('horario.index');
-    Route::get('/horario', [HorarioAtencionController::class, 'index'])->name('horario.index');
-    Route::get('/horario/create', [HorarioAtencionController::class, 'create'])->name('horario.create');
-    Route::get('/horario/edit', [HorarioAtencionController::class, 'edit'])->name('horario.edit');
-    Route::post('/horarios', [HorarioAtencionController::class, 'store'])->name('horario.store');
-    Route::post('/horariod', [HorarioAtencionController::class, 'destroy'])->name('horario.destroy');
-    Route::post('/horariou', [HorarioAtencionController::class, 'update'])->name('horario.update');
+    Route::get('/horario', [HorarioAtencionController::class, 'index'])->middleware(['auth'])->name('horario.index');
+    Route::get('/horario/create', [HorarioAtencionController::class, 'create'])->middleware(['auth'])->name('horario.create');
+    Route::get('/horario/edit', [HorarioAtencionController::class, 'edit'])->middleware(['auth'])->name('horario.edit');
+    Route::post('/horarios', [HorarioAtencionController::class, 'store'])->middleware(['auth'])->name('horario.store');
+    Route::post('/horariod', [HorarioAtencionController::class, 'destroy'])->middleware(['auth'])->name('horario.destroy');
+    Route::post('/horariou', [HorarioAtencionController::class, 'update'])->middleware(['auth'])->name('horario.update');
 });
 
 Route:: controller(MedicoController::class) -> group( function(){
@@ -76,11 +78,26 @@ Route:: controller(RegistroController::class) -> group( function(){
 
 Route:: controller(UsuarioController::class) -> group( function(){
     Route::get('/usuario', [UsuarioController::class, 'index'])->middleware(['auth'])->name('usuario.index');
-    Route::get('/usuario/create', [UsuarioController::class, 'create'])->name('usuario.create');
-    Route::get('/usuario/update', [UsuarioController::class, 'update'])->name('usuario.update');
-    Route::get('/usuario/edit', [UsuarioController::class, 'edit'])->name('usuario.edit');
-    Route::get('/usuario/destroy', [UsuarioController::class, 'destroy'])->name('usuario.destroy');
-    Route::get('/usuario/validate', [UsuarioController::class, 'validate'])->name('usuario.validate');
-    Route::get('/usuario/show/{usuario}', [UsuarioController::class, 'show'])->name('usuario.show');
-    Route::post('/usuario',[UsuarioController::class, 'store'])->name('usuario.store');
+    Route::get('/usuario/create', [UsuarioController::class, 'create'])->middleware(['auth'])->name('usuario.create');
+    Route::get('/usuario/update', [UsuarioController::class, 'update'])->middleware(['auth'])->name('usuario.update');
+    Route::get('/usuario/edit', [UsuarioController::class, 'edit'])->middleware(['auth'])->name('usuario.edit');
+    Route::get('/usuario/destroy', [UsuarioController::class, 'destroy'])->middleware(['auth'])->name('usuario.destroy');
+    Route::get('/usuario/validate', [UsuarioController::class, 'validate'])->middleware(['auth'])->name('usuario.validate');
+    Route::get('/usuario/show/{usuario}', [UsuarioController::class, 'show'])->middleware(['auth'])->name('usuario.show');
+    Route::post('/usuario',[UsuarioController::class, 'store'])->middleware(['auth'])->name('usuario.store');
 });
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Enviado link de verificación');
+    //return redirect()->route('register.index')->with('success','Enviado link de verificación');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');

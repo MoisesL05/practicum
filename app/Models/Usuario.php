@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Factories\HasFactory;
+//use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Usuario extends Authenticable implements MustVerifyEmail
 {
-    use HasFactory;
+    use Notifiable;
 
     protected $fillable = ['apellido','cedula','correo','estado','id','nombre','password','tipo','verificado'];
     protected $hidden = [ 'password'];
