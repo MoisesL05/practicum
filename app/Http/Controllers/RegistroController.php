@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
+use App\Models\Paciente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
@@ -21,6 +22,13 @@ class RegistroController extends Controller
         $user = Usuario::create($request->all());
 
         event(new Registered($user));
+
+        $idUsuarioCreado = Usuario::latest('id')->first()->id;
+
+        $paciente = new Paciente();
+        $paciente->idUSuario = $idUsuarioCreado;
+        $paciente->direccion = $request->direccion;
+        $paciente->save();
 
         $credentials = $request->only('correo', 'password');
         if (Auth::attempt($credentials)) {

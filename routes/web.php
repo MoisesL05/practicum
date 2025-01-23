@@ -79,9 +79,9 @@ Route:: controller(RegistroController::class) -> group( function(){
 Route:: controller(UsuarioController::class) -> group( function(){
     Route::get('/usuario', [UsuarioController::class, 'index'])->middleware(['auth'])->name('usuario.index');
     Route::get('/usuario/create', [UsuarioController::class, 'create'])->middleware(['auth'])->name('usuario.create');
-    Route::get('/usuario/update', [UsuarioController::class, 'update'])->middleware(['auth'])->name('usuario.update');
-    Route::get('/usuario/edit', [UsuarioController::class, 'edit'])->middleware(['auth'])->name('usuario.edit');
-    Route::get('/usuario/destroy', [UsuarioController::class, 'destroy'])->middleware(['auth'])->name('usuario.destroy');
+    Route::put('/usuario/{usuario}', [UsuarioController::class, 'update'])->middleware(['auth'])->name('usuario.update');
+    Route::get('/usuario/edit/{usuario}', [UsuarioController::class, 'edit'])->middleware(['auth'])->name('usuario.edit');
+    Route::delete('/usuariod/{usuario}', [UsuarioController::class, 'destroy'])->middleware(['auth'])->name('usuario.destroy');
     Route::get('/usuario/validate', [UsuarioController::class, 'validate'])->middleware(['auth'])->name('usuario.validate');
     Route::get('/usuario/show/{usuario}', [UsuarioController::class, 'show'])->middleware(['auth'])->name('usuario.show');
     Route::post('/usuario',[UsuarioController::class, 'store'])->middleware(['auth'])->name('usuario.store');

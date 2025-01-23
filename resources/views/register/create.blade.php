@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-sm-6 mt-2">
                             <label for="direccion" class="form-label mb-0">Dirección</label>
-                            <input type="text" class="form-control" id="direccion" required>
+                            <input type="text" class="form-control" id="direccion" name="direccion" required>
                         </div>
                         <input type="hidden" name="tipo" value="3">
                         <input type="hidden" name="verificado" value="1">

@@ -40,9 +40,9 @@
                               Recordarme
                             </label>
                           </div>
-                        <div class="form-floating text-center">
+                        {{-- <div class="form-floating text-center">
                             <a href="{{ url('/register/recovery') }}">Olvidó su contraseña</a>
-                        </div>
+                        </div> --}}
                         <div class="text-center">
                             <button class="btn btn-primary w-25 py-2 mt-3" type="submit">Ingresar</button>
                             <a class="btn btn-warning w-25 py-2 mt-3" href="{{ url('register/create') }}">Registrarse</a>

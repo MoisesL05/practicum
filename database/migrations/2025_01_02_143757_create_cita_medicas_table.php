@@ -16,9 +16,12 @@ return new class extends Migration
             $table->integer('estado')->default('1');
             $table->date('fecha');
             $table->time('hora');
-            $table->integer('idMedico');
-            $table->integer('idPaciente');
+            $table->unsignedBigInteger('idMedico');
+            $table->unsignedBigInteger('idPaciente');
             $table->timestamps();
+
+            $table->foreign('idMedico')->references('id')->on('medicos')->onDelete('cascade');
+            $table->foreign('idPaciente')->references('id')->on('pacientes')->onDelete('cascade');
         });
     }
 

@@ -3,6 +3,7 @@
 @section('title', 'Usuarios del sistema')
 
 @section('content')
+
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol  id="edit" viewBox="0 0 24 24">
         <path d="M20.9888 4.28491L19.6405 2.93089C18.4045 1.6897 16.4944 1.6897 15.2584 2.93089L13.0112 5.30042L18.7416 11.055L21.1011 8.68547C21.6629 8.1213 22 7.33145 22 6.54161C22 5.75176 21.5506 4.84908 20.9888 4.28491Z" />
@@ -17,6 +18,17 @@
 </svg>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @elseif (session('warning'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ session('warning') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="container">
         <div class="row my-3">
             <div class="col">
@@ -51,10 +63,15 @@
                         <td>{{ $usuario->cedula }}</td>
                         <td>@if ($usuario->tipo==1) Médico @elseif ($usuario->tipo==2) Operador @else Paciente @endif</td>
                         <td class="text-center">
-                            {{-- <a href="{{ url('usuario/show', $usuario) }}" title="Ver"><svg class="bi text-success"><use xlink:href="#ver" /></svg></a> --}}
                             <a href="{{ route('usuario.show', $usuario) }}" title="Ver"><svg class="bi text-success"><use xlink:href="#ver" /></svg></a>
                             <a href="{{ route('usuario.edit', $usuario->id) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                            <a href="{{ route('usuario.destroy', $usuario->id) }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
+                            <form id="{{$usuario->id}}" class="needs-validation" novalidate method="POST" action="{{route('usuario.destroy', $usuario->id)}}" style="display:inline;">
+                                @csrf
+                                @method('delete')
+                                <a href="javascript:{}" onclick="document.getElementById('{{$usuario->id}}').submit(); return false;"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
+                            </form>
+
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -62,4 +79,5 @@
         </table>
     </div>
 </main>
+
 @endsection

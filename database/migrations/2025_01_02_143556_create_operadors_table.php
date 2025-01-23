@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('operadors', function (Blueprint $table) {
             $table->id();
-            $table->string('cargo');
-            $table->string('departamento');
-            $table->integer('idUsuario');
+            $table->string('cargo')->nullable();
+            $table->string('departamento')->nullable();
+            $table->unsignedBigInteger('idUsuario');
             $table->timestamps();
+
+            $table->foreign('idUsuario')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
 

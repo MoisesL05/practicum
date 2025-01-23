@@ -16,8 +16,10 @@ return new class extends Migration
             $table->integer('diaDeSemana');
             $table->time('horaFin');
             $table->time('horaInicio');
-            $table->integer('idMedico');
+            $table->unsignedBigInteger('idMedico');
             $table->timestamps();
+
+            $table->foreign('idMedico')->references('id')->on('medicos')->onDelete('cascade');
         });
     }
 

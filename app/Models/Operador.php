@@ -9,5 +9,6 @@ class Operador extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cargo','departamento','id','idUsuario'];
+    protected $fillable = ['id','idUsuario'];
+    protected $nullable = ['cargo','departamento'];
 }
