@@ -1,3 +1,8 @@
+<?php
+    use App\Models\CitaMedica;
+    use App\Models\Paciente;
+    use App\Models\Medico;
+?>
 @extends( auth()->user()->tipo==1 ? 'layouts.medico' : (auth()->user()->tipo==2 ? 'layouts.operador' : 'layouts.paciente'))
 
 @section('title', 'Dashboard')
@@ -20,44 +25,37 @@
     <h3 class="mt-3">Mis próximas citas</h3>
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                <div class="card" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary text-end">Medicina General</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary text-end">Dr. Juan Pérez</h6>
-                        <p class="card-text mb-0"><strong>Fecha:</strong> Lunes, 6 de Enero de 2025</p>
-                        <p class="card-text mt-0 mb-1"><strong>Hora</strong> 09:30</p>
-                        <a href="#" class="card-link mt-0">Ver detalles</a>
+            <?php
+                if (auth()->user()->tipo==1) {
+                    $citas = CitaMedica::select('*')->where('idMedico',auth()->user()->medico->id)->orderBy('id','desc')->limit('3')->get();
+                } else if (auth()->user()->tipo==2) {
+                    $citas = CitaMedica::select('*')->orderBy('id','desc')->limit('3')->get();
+                } else {
+                    $citas = CitaMedica::select('*')->where('idPaciente',auth()->user()->paciente->id)->orderBy('id','desc')->limit('3')->get();
+                }
+
+            ?>
+            @foreach ($citas as $cita)
+                <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary text-end">{{ $cita->medico->especialidad }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary text-end"><b>Dr(a): </b>{{ $cita->medico->usuario->nombre.' '.$cita->medico->usuario->apellido }}</h6>
+                            <p class="card-text mb-0"><strong>Paciente: </strong>{{ $cita->paciente->usuario->nombre.' '.$cita->paciente->usuario->apellido }}</p>
+                            <p class="card-text mb-0"><strong>Fecha: </strong>{{ $cita->fecha }}</p>
+                            <p class="card-text mt-0 mb-0"><strong>Hora </strong>{{ $cita->hora }}</p>
+                            {{-- 1-Pendiente 2-Perdida 3-Finalizada --}}
+                            <p class="card-text mt-0 mb-1"><strong>Estado </strong>@if ($cita->estado==1) Pendiente @elseif ($cita->estado==2) Perdida @else Finalizada @endif</p>
+                            {{-- <a href="#" class="card-link mt-0">Ver detalles</a> --}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                <div class="card" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary text-end">Odontología</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary text-end">Dra. María Vera</h6>
-                        <p class="card-text mb-0"><strong>Fecha:</strong> Martes, 7 de Enero de 2025</p>
-                        <p class="card-text mt-0 mb-1"><strong>Hora</strong> 09:30</p>
-                        <a href="#" class="card-link mt-0">Ver detalles</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                <div class="card" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary text-end">Cardiología</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary text-end">Dr. Pedro Mero</h6>
-                        <p class="card-text mb-0"><strong>Fecha:</strong> Miércoles, 8 de Enero de 2025</p>
-                        <p class="card-text mt-0 mb-1"><strong>Hora</strong> 09:30</p>
-                        <a href="#" class="card-link mt-0">Ver detalles</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
-    <h6 class="text-center my-3"><a href="#">Ver todas las citas</a></h6>
+    <h6 class="text-center my-3"><a href="{{ url('citamedica') }}">Ver todas las citas</a></h6>
     {{-- TRATAMIENTOS --}}
-    <h3 class="mt-3">Mis últimos tratamientos</h3>
+    {{-- <h3 class="mt-3">Mis últimos tratamientos</h3>
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
@@ -89,7 +87,7 @@
             </div>
         </div>
     </div>
-    <h6 class="text-center my-3"><a href="#">Ver todos los tratamientos</a></h6>
+    <h6 class="text-center my-3"><a href="#">Ver todos los tratamientos</a></h6> --}}
 
 </main>
 @endsection

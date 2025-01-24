@@ -148,27 +148,27 @@
                                     Usuarios
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center gap-2" href="#">
                                     <svg class="bi">
                                         <use xlink:href="#graph-up" />
                                     </svg>
                                     Reportes
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
 
                         <hr class="my-3">
 
                         <ul class="nav flex-column mb-auto">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center gap-2" href="#">
                                     <svg class="bi">
                                         <use xlink:href="#gear-wide-connected" />
                                     </svg>
                                     Perfil
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <form class="needs-validation" novalidate method="POST" action="{{route('register.logout')}}">
                                     @csrf

@@ -17,11 +17,21 @@
 </svg>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @elseif (session('warning'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ session('warning') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="container">
         <div class="row my-3">
             <div class="col">
                 <h4>Horarios de atención</h4>
-                <span class="small">Dr. Juan Pérez</span>
             </div>
 
         <div class="col text-end">
@@ -40,25 +50,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Lunes</td>
-                    <td>15:00</td>
-                    <td>18:00</td>
-                    <td class="text-center">
-                        <a href="{{ route('horario.edit', 1) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ route('horario.edit', 1) }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Martes</td>
-                    <td>15:00</td>
-                    <td>18:00</td>
-                    <td class="text-center">
-                        <a href="{{ route('horario.edit', 1) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ route('horario.edit', 1) }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
-                    </td>
-                </tr>
-                <tr>
+                @foreach($horarios as $horario)
+                    <tr>
+                        <td>@if ($horario->diaDeSemana==1) Lunes @elseif ($horario->diaDeSemana==2) Martes @elseif ($horario->diaDeSemana==3) Miércoles @elseif ($horario->diaDeSemana==4) Jueves @elseif ($horario->diaDeSemana==5) Viernes @else Sábado @endif</td>
+                        <td>{{ $horario->horaInicio }}</td>
+                        <td>{{ $horario->horaFin }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('horario.edit', $horario->id) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
+                            <form id="{{$horario->id}}" class="needs-validation" novalidate method="POST" action="{{route('horario.destroy', $horario->id)}}" style="display:inline;">
+                                @csrf
+                                @method('delete')
+                                <a href="javascript:{}" onclick="document.getElementById('{{$horario->id}}').submit(); return false;"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                {{-- <tr>
                     <td>Viernes</td>
                     <td>14:00</td>
                     <td>17:00</td>
@@ -66,7 +73,7 @@
                         <a href="{{ route('horario.edit', 1) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
                         <a href="{{ route('horario.edit', 1) }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
                     </td>
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
     </div>

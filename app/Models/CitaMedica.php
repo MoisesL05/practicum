@@ -14,10 +14,10 @@ class CitaMedica extends Model
 
     public function medico(): HasOne
     {
-        return $this->hasOne(Medico::class, 'id');
+        return $this->hasOne(Medico::class, 'id', 'idMedico');
     }
     public function paciente(): HasOne
     {
-        return $this->hasOne(Paciente::class, 'id');
+        return $this->hasOne(Paciente::class, 'id' ,'idPaciente');
     }
 }

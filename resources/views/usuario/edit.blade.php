@@ -27,7 +27,6 @@
         <div class="row g-5">
             <div class="col-md-12 col-lg-12">
                 <h4 class="mb-3 mt-3">Actualizar usuario</h4>
-                {{-- <form action="{{ route('patients.update', $patient->id) }}" method="POST"> --}}
                 <form action="{{route('usuario.update', $usuario->id)}}" method="POST">
                     @csrf
                     @method('PUT')

@@ -70,8 +70,6 @@
                                 @method('delete')
                                 <a href="javascript:{}" onclick="document.getElementById('{{$usuario->id}}').submit(); return false;"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
                             </form>
-
-                            </form>
                         </td>
                     </tr>
                 @endforeach

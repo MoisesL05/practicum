@@ -8,37 +8,51 @@ use Illuminate\Http\Request;
 class CitaMedicaController extends Controller
 {
     public function index() {
-        // $horario = HorarioAtencion::orderBy('id','desc')->paginate();
-        // return view('horario.index', compact('horario'));
-        return view('citamedica.index');
+        if (auth()->user()->tipo==1) {
+            $citas = CitaMedica::orderBy('id','desc')->where('idMedico',auth()->user()->medico->id)->paginate();
+        } else if (auth()->user()->tipo==2) {
+            $citas = CitaMedica::orderBy('id','desc')->paginate();
+        } else {
+            $citas = CitaMedica::orderBy('id','desc')->where('idPaciente',auth()->user()->paciente->id)->paginate();
+        }
+        return view('citamedica.index', compact('citas'));
     }
     public function create() {
         return view('citamedica.create');
     }
     public function store(Request $request)
     {
-        CitaMedica::create($request->all());
-        return redirect()->route('citamedica')->with('success','Cita médica creada correctamente');
+        $citamedica = new CitaMedica();
+        $citamedica->idPaciente = $request->paciente;
+        $idMed = explode('_',$request->medico);
+        $citamedica->idMedico = $idMed[0];
+        $citamedica->fecha = $request->fecha;
+        $citamedica->hora = $request->hora;
+        $citamedica->save();
+        return redirect()->route('citamedica.index')->with('success','Cita médica creada correctamente');
     }
-    public function show(CitaMedica $citamedica) {
-        return view('citamedica.show',compact('citamedica'));
+    public function show(CitaMedica $cita) {
+        return view('citamedica.show',compact('cita'));
     }
-    public function edit(CitaMedica $citamedica)
+    public function edit(CitaMedica $cita)
     {
-        return view('citamedica.edit', compact('citamedica'));
+        return view('citamedica.edit', compact('cita'));
     }
-    public function reagendar(CitaMedica $citamedica)
+    public function update(Request $request, CitaMedica $cita)
     {
-        return view('citamedica.reagendar', compact('citamedica'));
-    }
-    public function update(Request $request, CitaMedica $citamedica)
-    {
-        $citamedica->update($request->all());
+        //return $request;
+        $cita->idPaciente = $request->paciente;
+        $idMed = explode('_',$request->medico);
+        $cita->idMedico = $idMed[0];
+        $cita->fecha = $request->fecha;
+        $cita->hora = $request->hora;
+        $cita->save();
+
         return redirect()->route('citamedica.index')->with('success','Cita médica actualizada correctamente');
     }
-    public function destroy(CitaMedica $citamedica)
+    public function destroy(CitaMedica $cita)
     {
-        $citamedica->delete();
+        $cita->delete();
         return redirect()->route('citamedica.index')->with('success','Cita médica eliminada correctamente');
 
     }

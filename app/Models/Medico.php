@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Medico extends Model
 {
@@ -13,8 +14,13 @@ class Medico extends Model
     protected $fillable = ['id','idUsuario'];
     protected $nullable = ['celular','direccionConsultorio','especialidad','telefonoConsultorio'];
 
-    public function horario(): HasOne
+    public function horario(): HasMany
     {
-        return $this->hasOne(HorarioAtencion::class, 'idMedico');
+        return $this->hasMany(HorarioAtencion::class, 'idMedico');
+    }
+
+    public function usuario(): BelongsTo
+    {
+        return $this->belongsTo(Usuario::class, 'idUsuario');
     }
 }
