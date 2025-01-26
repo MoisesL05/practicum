@@ -65,15 +65,6 @@
                         </td>
                     </tr>
                 @endforeach
-                {{-- <tr>
-                    <td>Viernes</td>
-                    <td>14:00</td>
-                    <td>17:00</td>
-                    <td class="text-center">
-                        <a href="{{ route('horario.edit', 1) }}" title="Editar"><svg class="bi"><use xlink:href="#edit" /></svg></a>
-                        <a href="{{ route('horario.edit', 1) }}" title="Eliminar"><svg class="bi text-danger"><use xlink:href="#delete" /></svg></a>
-                    </td>
-                </tr> --}}
             </tbody>
         </table>
     </div>

@@ -14,7 +14,6 @@ class RegistroController extends Controller
         return view('register.index');
     }
     public function create() {
-        $var=1;
         return view('register.create');
     }
     public function store(Request $request)
